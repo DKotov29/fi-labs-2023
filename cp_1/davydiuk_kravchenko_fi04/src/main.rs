@@ -6,7 +6,7 @@ fn main() {
 
     let filtered = file_content
         .chars()
-        .filter(|char| char.is_alphabetic())
+        .filter(|char| char.is_alphabetic() || char == &' ')
         .collect::<String>();
     let mut set_chars = HashSet::new();
     let mut char_amount_map = HashMap::new();
