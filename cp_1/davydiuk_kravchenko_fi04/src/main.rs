@@ -1,12 +1,21 @@
+extern crate core;
+
 use std::collections::{HashMap, HashSet};
 use std::fs;
 
 fn main() {
-    let file_content = fs::read_to_string("TEXT").expect("problem with reading of file");
-
+    let mut file_content = fs::read_to_string("TEXT").expect("problem with reading of file");
     let filtered = file_content
         .chars()
-        .filter(|char| char.is_alphabetic() || char == &' ')
+        .filter(|char| "абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ".contains(|e| e == *char) //|| char == &' '
+        )
+        .map(|char| {
+            match char {
+                'ё' => 'е',
+                'ъ' => 'ь',
+                _ => char,
+            }
+        })
         .collect::<String>();
     let mut set_chars = HashSet::new();
     let mut char_amount_map = HashMap::new();
