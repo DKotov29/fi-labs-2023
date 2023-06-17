@@ -1,3 +1,4 @@
+use std::collections::HashSet;
 // fn main() {
 //     let russian_char = 'б'; // The starting Russian character
 //
@@ -44,6 +45,7 @@ fn encrypt(key: &str) -> String {
         }
         file_content = re;
     }
+    println!("index: {}",   index(file_content.as_str()));
     println!("text: {file_content}\nkey: {key}");
     // println!("char + key_char = result");
     let alph_len = alph.chars().count();
@@ -73,6 +75,30 @@ fn encrypt(key: &str) -> String {
 
     println!("result: {result}");
     result
+}
+
+fn index(text: &str) -> f64 {
+    let mut set = HashSet::new();
+    for i in text.chars() {
+        set.insert(i);
+    }
+    let alph_symb_in_text = set.len();
+    let text_symb_count = text.chars().count();
+    dbg!(text_symb_count);
+    dbg!(alph_symb_in_text);
+    let mut v = Vec::new();
+    for char in set {
+        let mut c = 0usize;
+        for i in text.chars() {
+            if i == char {
+                c+=1;
+            }
+        }
+        v.push((char, c));
+    }
+    dbg!(&v);
+    let res = (1f64/(text_symb_count as f64 *(text_symb_count as f64 - 1f64)))*((v.iter().map(|(_, count)| count*(count-1)).sum::<usize>()) as f64);
+    res
 }
 
 #[cfg(test)]
