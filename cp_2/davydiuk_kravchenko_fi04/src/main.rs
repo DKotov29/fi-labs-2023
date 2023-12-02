@@ -45,7 +45,7 @@ fn encrypt(key: &str) -> String {
         }
         file_content = re;
     }
-    println!("index: {}",   index(file_content.as_str()));
+    println!("index: {}", index(file_content.as_str()));
     println!("text: {file_content}\nkey: {key}");
     // println!("char + key_char = result");
     let alph_len = alph.chars().count();
@@ -91,13 +91,13 @@ fn index(text: &str) -> f64 {
         let mut c = 0usize;
         for i in text.chars() {
             if i == char {
-                c+=1;
+                c += 1;
             }
         }
         v.push((char, c));
     }
     dbg!(&v);
-    let res = (1f64/(text_symb_count as f64 *(text_symb_count as f64 - 1f64)))*((v.iter().map(|(_, count)| count*(count-1)).sum::<usize>()) as f64);
+    let res = (1f64 / (text_symb_count as f64 * (text_symb_count as f64 - 1f64))) * ((v.iter().map(|(_, count)| count * (count - 1)).sum::<usize>()) as f64);
     res
 }
 
